@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    [SerializeField] private Enemy _prefab;
     [SerializeField] private float _spawnDelay = 2;
 
-    private PointSpawner[] _points;
+    private SpawnPoint[] _points;
     private float _runningTime;
     private int _currentPoint = 0;
 
     private void Awake()
     {
-        _points = GetComponentsInChildren<PointSpawner>();
+        _points = GetComponentsInChildren<SpawnPoint>();
     }
 
     private void Update()
@@ -27,7 +28,7 @@ public class Spawner : MonoBehaviour
     {
         _runningTime = 0;
 
-        _points[_currentPoint].Spawn();
+        Instantiate(_prefab, _points[_currentPoint].transform.position, Quaternion.identity);
 
         _currentPoint++;
 
